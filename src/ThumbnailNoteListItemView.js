@@ -3,11 +3,30 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import updateLocale from 'dayjs/plugin/updateLocale'
 import classNames from 'classnames'
 import removeMd from 'remove-markdown'
 const matter = require('gray-matter')
 
 dayjs.extend(relativeTime)
+dayjs.extend(updateLocale)
+dayjs.updateLocale('en', {
+  relativeTime: {
+    past: "%s",
+    s: "1S",
+    ss: "%sS",
+    m: "1m",
+    mm: "%dm",
+    h: "1H",
+    hh: "%dH",
+    d: "1D",
+    dd: "%dD",
+    M: "1M",
+    MM: "%dM",
+    y: "1Y",
+    yy: "%dY"
+  }
+})
 
 export default function ThumbnailNoteListItemView(props) {
   const NoteStatusIcon = inkdrop.components.getComponentClass('NoteStatusIcon')
@@ -90,7 +109,19 @@ export default function ThumbnailNoteListItemView(props) {
     task: status !== 'none',
     'has-thumbnail': imageUrls.length > 0,
   })
-  const date = dayjs(updatedAt).fromNow(true)
+
+  var padNumber = function(number, padTo) {
+    let finalString = number + "";
+
+    while (finalString.length < padTo) {
+      finalString = "0" + finalString;
+    }
+
+    return finalString;
+  }
+
+  const date = dayjs(updatedAt).fromNow(true);
+
   const taskState = status ? `task-${status}` : ''
   const isTask = typeof numOfTasks === 'number' && numOfTasks > 0
 
