@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import classNames from 'classnames'
+import removeMd from 'remove-markdown'
 const matter = require('gray-matter')
 
 dayjs.extend(relativeTime)
@@ -32,27 +33,50 @@ export default function ThumbnailNoteListItemView(props) {
     _rev
   } = note
 
-  const {data} = matter(body)
+  const {content, data} = matter(body)
+  const plainBodyTrim = removeMd(content).substring(0, 200);
 
-  const match = body.match(/.*<img .*src="(.*[^\"])".*>.*|\!\[.*]\( *([^ ]+) *(?:[ ]+"[^"]*")?\)/)
-  
-  let imageUrl = data[inkdrop.config.get('thumbnail-list.keyName') ?? "thumbnail"]
+  /*
+    Rather than changing the existing regex, this hacky way was implemented
+    Scan a copy of the body for a match, extract it, then remove that match from the copy.
+    Keep scanning the copy and removing matches until we have three matches or there are no more matches
+  */
+  let continueLoop = true
+  let imageUrls = [];
+  let bodyCopy = body + "";
 
-  if (!imageUrl && match && match.length > 2) {
-    const url = match[1] ?? match[2]
-    imageUrl = url.replace(/^inkdrop:\/\/file:/,'inkdrop-file://file:')
+  let loopCount = 0;
+
+  while (continueLoop) {
+    loopCount++;
+    const match = bodyCopy.match(/.*<img .*src="(.*[^\"])".*>.*|\!\[.*]\( *([^ ]+) *(?:[ ]+"[^"]*")?\)/)
+
+    let imageUrl = data[inkdrop.config.get('thumbnail-list.keyName') ?? "thumbnail"]
+
+    if (imageUrls.length < 3) {
+      if (!imageUrl && match && match.length > 2) {
+        const url = match[1] ?? match[2]
+        bodyCopy = bodyCopy.replaceAll(url, "")
+        imageUrl = url.replace(/^inkdrop:\/\/file:/,'inkdrop-file://file:')
+        imageUrls.push(imageUrl);
+      }
+      else {
+        continueLoop = false;
+      }
+    }
+    else {
+      continueLoop = false;
+    }
   }
 
-  const imageStyle = inkdrop.config.get('thumbnail-list.imageStyle')
-
-  const showSummary = inkdrop.config.get('thumbnail-list.showSummary')
-
   const ThumbnailView = () => {
-    if (imageUrl) {
+    if (imageUrls.length > 0) {
       return (
         <div className="thumbnail">
           <div className="wrapper">
-            <img  className={`image ${imageStyle}`} src={imageUrl} />
+            {imageUrls.map((value, index) => {
+              return <img className={`image cover`} src={value} />
+            })}
           </div>
         </div>
       )
@@ -64,7 +88,7 @@ export default function ThumbnailNoteListItemView(props) {
     active,
     focused,
     task: status !== 'none',
-    'has-thumbnail': imageUrl !== undefined,
+    'has-thumbnail': imageUrls.length > 0,
   })
   const date = dayjs(updatedAt).fromNow(true)
   const taskState = status ? `task-${status}` : ''
@@ -121,10 +145,12 @@ export default function ThumbnailNoteListItemView(props) {
             )}
             <TagList tagIds={tags} />
           </div>
-            {showSummary && <NoteListItemSummaryView revId={_rev || ''} body={body} />}
+            {/* {showSummary && <NoteListItemSummaryView revId={_rev || ''} body={plainBodyTrim} />} */}
+            <span className="text">{plainBodyTrim}</span>
         </div>
-      </div>
+
       {ThumbnailView()}
+      </div>
     </div>
   )
 }

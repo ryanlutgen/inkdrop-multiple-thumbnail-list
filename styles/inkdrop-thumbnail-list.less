@@ -1,7 +1,6 @@
 .thumbnail-note-list-item-view.note-list-item-view.has-thumbnail {
   display: grid;
   width: 100%;
-  grid-template-columns: minmax( 0, 1fr ) 80px;
 
   .content {
     width: 100%;
@@ -14,16 +13,16 @@
     align-items: center;
 
     .wrapper {
-      background-color: #fff;
+      background-color: inherit;
       width: 100%;
       height: 72px;
       position: relative;
 
       .image {
-        width: 100%;
+        width: 33%;
         height: 100%;
-        position: absolute;
         top: 0;
+        padding-right: 10px;
       }
 
       .cover {

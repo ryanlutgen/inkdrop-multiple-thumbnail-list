@@ -1,10 +1,10 @@
 {
-  "name": "thumbnail-list",
+  "name": "multiple-thumbnail-list",
   "main": "./src/index",
   "version": "0.1.0",
-  "description": "Show thumbnail images in note lists",
+  "description": "Show thumbnail images in note lists (fork from Fus1onDev/inkdrop-thumbnail-list)",
   "keywords": [],
-  "repository": "https://github.com/Fus1onDev/inkdrop-thumbnail-list",
+  "repository": "https://github.com/ryanlutgen/inkdrop-multiple-thumbnail-list",
   "license": "MIT",
   "engines": {
     "inkdrop": "^5.x"
@@ -12,6 +12,7 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "remove-markdown": "^0.3.0"
   }
 }
