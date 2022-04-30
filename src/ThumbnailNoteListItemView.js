@@ -3,11 +3,30 @@ import * as React from 'react'
 import { useCallback } from 'react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import updateLocale from 'dayjs/plugin/updateLocale'
 import classNames from 'classnames'
 import removeMd from 'remove-markdown'
 const matter = require('gray-matter')
 
 dayjs.extend(relativeTime)
+dayjs.extend(updateLocale)
+dayjs.updateLocale('en', {
+  relativeTime: {
+    past: "%s",
+    s: "1s",
+    ss: "%ss",
+    m: "1m",
+    mm: "%dm",
+    h: "1h",
+    hh: "%dh",
+    d: "1d",
+    dd: "%dd",
+    M: "1M",
+    MM: "%dM",
+    y: "1y",
+    yy: "%dy"
+  }
+})
 
 export default function ThumbnailNoteListItemView(props) {
   const NoteStatusIcon = inkdrop.components.getComponentClass('NoteStatusIcon')
@@ -45,10 +64,7 @@ export default function ThumbnailNoteListItemView(props) {
   let imageUrls = [];
   let bodyCopy = body + "";
 
-  let loopCount = 0;
-
   while (continueLoop) {
-    loopCount++;
     const match = bodyCopy.match(/.*<img .*src="(.*[^\"])".*>.*|\!\[.*]\( *([^ ]+) *(?:[ ]+"[^"]*")?\)/)
 
     let imageUrl = data[inkdrop.config.get('thumbnail-list.keyName') ?? "thumbnail"]
@@ -90,7 +106,9 @@ export default function ThumbnailNoteListItemView(props) {
     task: status !== 'none',
     'has-thumbnail': imageUrls.length > 0,
   })
-  const date = dayjs(updatedAt).fromNow(true)
+
+  const date = dayjs(updatedAt).fromNow(true);
+
   const taskState = status ? `task-${status}` : ''
   const isTask = typeof numOfTasks === 'number' && numOfTasks > 0
 
@@ -129,14 +147,14 @@ export default function ThumbnailNoteListItemView(props) {
       onDoubleClick={handleDblClick}
     >
       <div className="content">
-        <div className="header">
+      <section class="section-left"><span className="date">{date}</span></section>
+      <section class="section-right"><div className="header">
           <NoteStatusIcon status={status} />
           <NoteListItemShareStatusView visibility={share} />
           {title || 'Untitled'}
         </div>
         <div className="description">
           <div className="meta">
-            <span className="date">{date}</span>
             {isTask && (
               <TaskProgressView
                 numOfTasks={numOfTasks || 0}
@@ -150,6 +168,7 @@ export default function ThumbnailNoteListItemView(props) {
         </div>
 
       {ThumbnailView()}
+      </section>
       </div>
     </div>
   )
