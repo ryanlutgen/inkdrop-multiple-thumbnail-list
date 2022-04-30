@@ -64,10 +64,7 @@ export default function ThumbnailNoteListItemView(props) {
   let imageUrls = [];
   let bodyCopy = body + "";
 
-  let loopCount = 0;
-
   while (continueLoop) {
-    loopCount++;
     const match = bodyCopy.match(/.*<img .*src="(.*[^\"])".*>.*|\!\[.*]\( *([^ ]+) *(?:[ ]+"[^"]*")?\)/)
 
     let imageUrl = data[inkdrop.config.get('thumbnail-list.keyName') ?? "thumbnail"]
@@ -109,16 +106,6 @@ export default function ThumbnailNoteListItemView(props) {
     task: status !== 'none',
     'has-thumbnail': imageUrls.length > 0,
   })
-
-  var padNumber = function(number, padTo) {
-    let finalString = number + "";
-
-    while (finalString.length < padTo) {
-      finalString = "0" + finalString;
-    }
-
-    return finalString;
-  }
 
   const date = dayjs(updatedAt).fromNow(true);
 

@@ -2,7 +2,7 @@
   "name": "multiple-thumbnail-list",
   "main": "./src/index",
   "version": "0.1.0",
-  "description": "Show thumbnail images in note lists (fork from Fus1onDev/inkdrop-thumbnail-list)",
+  "description": "Show multiple thumbnail images in note lists (fork from Fus1onDev/inkdrop-thumbnail-list)",
   "keywords": [],
   "repository": "https://github.com/ryanlutgen/inkdrop-multiple-thumbnail-list",
   "license": "MIT",

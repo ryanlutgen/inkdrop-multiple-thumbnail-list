@@ -1,24 +1,12 @@
-# Inkdrop Thumbnail List Plugin
+# Inkdrop Multiple Thumbnail List and Date Plugin
 
-> Inkdrop plugin to show thumbnail images in note lists
+> Inkdrop plugin to show multiple thumbnail images and alter modified date format in note lists
 
-![](https://inkdrop-plugin-badge.vercel.app/api/version/thumbnail-list) ![](https://inkdrop-plugin-badge.vercel.app/api/downloads/thumbnail-list) ![](https://img.shields.io/github/license/Fus1onDev/inkdrop-thumbnail-list?style=plastic)
 
-![](./images/ss.png)
+![](./images/screenshot.png)
 
-This plugin automatically sets the first image as the thumbnail.
+This plugin, forked from [Fus1onDev/inkdrop-thumbnail-list](https://github.com/Fus1onDev/inkdrop-thumbnail-list) under the MIT license, was designed to show multiple images in the thumbnail preview, and alter the modified date format.
 
-You can overwrite it by adding a `thumbnail` key to the front-matter.
-
-![](./images/example.png)
-
-The name of the key (default: `thumbnail`) can be changed from settings.
+This plugin was written to make note lists appear like a Mac notetaking app, which shall remain unnamed.
 
 ## Changelog
-
-### 0.2.0
-
-- Added some options
-- Removed one dependency
-
-### 0.1.0 - First Release
