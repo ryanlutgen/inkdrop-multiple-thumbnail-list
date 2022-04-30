@@ -1,5 +1,7 @@
+@spacing: 35px;
+
 .thumbnail-note-list-item-view.note-list-item-view.has-thumbnail {
-  display: grid;
+  // display: grid;
   width: 100%;
 
   .content {
@@ -9,6 +11,7 @@
     flex-basis: 200px;
     margin-top: 8px;
     margin-right: 10px;
+    margin-left: @spacing;
     display: flex;
     align-items: center;
 
@@ -34,4 +37,17 @@
       }
     }
   }
+}
+
+.section-left {
+  float: left;
+  width: @spacing;
+  box-sizing: border-box;
+  padding: 0px 14px 8px 0
+}
+.section-right {
+}
+
+.note-list-item-view .content .description {
+  margin-left: @spacing;
 }

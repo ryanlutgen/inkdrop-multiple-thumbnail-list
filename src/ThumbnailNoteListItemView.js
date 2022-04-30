@@ -13,18 +13,18 @@ dayjs.extend(updateLocale)
 dayjs.updateLocale('en', {
   relativeTime: {
     past: "%s",
-    s: "1S",
-    ss: "%sS",
+    s: "1s",
+    ss: "%ss",
     m: "1m",
     mm: "%dm",
-    h: "1H",
-    hh: "%dH",
-    d: "1D",
-    dd: "%dD",
+    h: "1h",
+    hh: "%dh",
+    d: "1d",
+    dd: "%dd",
     M: "1M",
     MM: "%dM",
-    y: "1Y",
-    yy: "%dY"
+    y: "1y",
+    yy: "%dy"
   }
 })
 
@@ -160,14 +160,14 @@ export default function ThumbnailNoteListItemView(props) {
       onDoubleClick={handleDblClick}
     >
       <div className="content">
-        <div className="header">
+      <section class="section-left"><span className="date">{date}</span></section>
+      <section class="section-right"><div className="header">
           <NoteStatusIcon status={status} />
           <NoteListItemShareStatusView visibility={share} />
           {title || 'Untitled'}
         </div>
         <div className="description">
           <div className="meta">
-            <span className="date">{date}</span>
             {isTask && (
               <TaskProgressView
                 numOfTasks={numOfTasks || 0}
@@ -181,6 +181,7 @@ export default function ThumbnailNoteListItemView(props) {
         </div>
 
       {ThumbnailView()}
+      </section>
       </div>
     </div>
   )
