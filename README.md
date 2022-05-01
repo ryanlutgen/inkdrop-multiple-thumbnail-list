@@ -25,6 +25,14 @@ ipm install paste-url
 
 ## Changelog
 
+### 1.0.2
+
+- Update regex to one from source repo to fix issue with multiple sequential images (Thank you xmarkclx)
+
+### 1.0.1
+
+- Skipped, becuase I did not know that Inkdrop would auto-increment for me :)
+
 ### 1.0.0
 
 - Initial release
