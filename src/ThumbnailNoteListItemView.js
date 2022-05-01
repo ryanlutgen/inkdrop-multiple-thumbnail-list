@@ -54,7 +54,8 @@ export default function ThumbnailNoteListItemView(props) {
 
   const {content, data} = matter(body)
 
-  //Show more characters in note description
+  //Remove markdown and show more characters in note description
+  // Vulneratbility that was present in removeMd was fixed -- https://github.com/stiang/remove-markdown/issues/52
   const plainBodyTrim = removeMd(content).substring(0, 200);
 
   /*
