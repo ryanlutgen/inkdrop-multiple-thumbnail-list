@@ -1,7 +1,7 @@
 {
   "name": "multiple-thumbnail-list-and-short-date",
   "main": "./src/index",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Show multiple thumbnail images in note lists and short modified date format (fork from Fus1onDev/inkdrop-thumbnail-list)",
   "keywords": [],
   "repository": "https://github.com/ryanlutgen/multiple-thumbnail-list-and-short-date",
