@@ -53,6 +53,8 @@ export default function ThumbnailNoteListItemView(props) {
   } = note
 
   const {content, data} = matter(body)
+
+  //Show more characters in note description
   const plainBodyTrim = removeMd(content).substring(0, 200);
 
   /*
@@ -65,14 +67,28 @@ export default function ThumbnailNoteListItemView(props) {
   let bodyCopy = body + "";
 
   while (continueLoop) {
-    const match = bodyCopy.match(/.*<img .*src="(.*[^\"])".*>.*|\!\[.*]\( *([^ ]+) *(?:[ ]+"[^"]*")?\)/)
+    // const match = bodyCopy.match(/.*<img .*src="(.*[^\"])".*>.*|\!\[.*]\( *([^ ]+) *(?:[ ]+"[^"]*")?\)/)
+
+    // updated regex by xmarkclx
+    const match = bodyCopy.match(/!\[[^\]]*\]\((?<filename>.*?)(?=\"|\))(?<optionalpart>\".*\")?\)/)
 
     let imageUrl;
+
 
     if (imageUrls.length < 3) {
       if (!imageUrl && match && match.length > 2) {
         const url = match[1] ?? match[2]
-        bodyCopy = bodyCopy.replaceAll(url, "")
+
+        if (match[0]) {
+          bodyCopy = bodyCopy.replace(match[0], "")
+        }
+        if (match[1]) {
+          bodyCopy = bodyCopy.replace(match[1], "")
+        }
+        if (match[2]) {
+          bodyCopy = bodyCopy.replace(match[2], "")
+        }
+
         imageUrl = url.replace(/^inkdrop:\/\/file:/,'inkdrop-file://file:')
         imageUrls.push(imageUrl);
       }
