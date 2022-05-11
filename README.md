@@ -16,7 +16,7 @@ Important things to note between this plugin and repo it is forked from ([Fus1on
 ## Install
 
 ```sh
-ipm install paste-url
+ipm install multiple-thumbnail-list-and-short-date
 ```
 
 ## Usage
